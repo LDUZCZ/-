@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "FocusSession": {
+      "title": "Focus Session",
+      "description": "A recorded period of focused work or study.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who performed the session." },
+        "startTime": { "type": "string", "format": "date-time", "description": "When the session started." },
+        "endTime": { "type": "string", "format": "date-time", "description": "When the session ended." },
+        "duration": { "type": "integer", "description": "Duration in seconds." },
+        "category": { "type": "string", "enum": ["Work", "Study", "Exercise", "Other"], "description": "The type of activity." },
+        "notes": { "type": "string", "description": "Optional notes about the session." }
+      },
+      "required": ["userId", "startTime", "endTime", "duration", "category"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Public and private information about a user.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "totalFocusTime": { "type": "integer", "description": "Total focus time in seconds." }
+      },
+      "required": ["email"]
+    }
+  },
+  "firestore": {
+    "/sessions/{sessionId}": {
+      "schema": "FocusSession",
+      "description": "Collection of focus sessions."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile documents."
+    }
+  }
+}
